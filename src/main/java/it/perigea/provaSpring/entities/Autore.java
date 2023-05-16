@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Autore {
@@ -29,6 +31,7 @@ public class Autore {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascita;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy="autore", cascade = CascadeType.ALL)
 	List<Libro> libri;
 	
@@ -62,7 +65,7 @@ public class Autore {
 	public void setDataNascita(Date dataNascita) {
 		this.dataNascita =dataNascita;
 	}
-	private List<Libro> getLibri() {	//messo private per non far stampare la lista
+	public List<Libro> getLibri() {
 		return libri;
 	}
 	public void setLibri(List<Libro> libri) {

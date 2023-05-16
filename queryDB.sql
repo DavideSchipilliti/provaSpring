@@ -8,7 +8,8 @@ CREATE TABLE libro(
 CREATE TABLE autore(
 	id serial primary key,
 	nome varchar(50) not null,
-	cognome varchar(50) not null);
+	cognome varchar(50) not null,
+	data_nascita date );
 
 insert into autore (nome, cognome)
 values ('nome1', 'cognome1');
@@ -23,8 +24,6 @@ values ('titolo1', 150, 1995, 1),
 Select * from libro
 select * from autore
 
-alter table autore
-add column data_nascita date
 
 insert into libro (titolo, pagine, anno)
 values ('titolo1', 150, 1997)
