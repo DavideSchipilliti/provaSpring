@@ -2,7 +2,7 @@ package it.perigea.provaSpring.entities.dto;
 
 public class LibroDto {
 
-	private Long id;
+	private String isbn;
 
 	private String titolo;
 
@@ -10,15 +10,10 @@ public class LibroDto {
 
 	private Integer anno;
 
-	private String autore;	//Voglio una stringa con nome e cognome
+	private String nomeAutore;	//Voglio una stringa con nome e cognome
+	private String cognomeAutore;
 
 	//getter e setter
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getTitolo() {
 		return titolo;
 	}
@@ -37,10 +32,22 @@ public class LibroDto {
 	public void setAnno(Integer anno) {
 		this.anno = anno;
 	}
-	public String getAutore() {
-		return autore;
+	public String getNome() {
+		return nomeAutore;
 	}
-	public void setAutore(String autore) {
-		this.autore = autore;
+	public void setNome(String autore) {
+		this.nomeAutore = autore;
+	}
+	public String getCognome() {
+		return cognomeAutore;
+	}
+	public void setCognome(String cognome) {
+		this.cognomeAutore = cognome;
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 }

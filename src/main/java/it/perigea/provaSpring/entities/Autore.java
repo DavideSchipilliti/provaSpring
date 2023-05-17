@@ -14,8 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Autore {
@@ -23,6 +21,8 @@ public class Autore {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column (name = "cod_fiscale", unique = true)
+	private String codFiscale;
 	@Column
 	private String nome;
 	@Column
@@ -31,7 +31,6 @@ public class Autore {
 	@Temporal(TemporalType.DATE)
 	private Date dataNascita;
 
-	@JsonManagedReference
 	@OneToMany(mappedBy="autore", cascade = CascadeType.ALL)
 	List<Libro> libri;
 	
@@ -70,6 +69,14 @@ public class Autore {
 	}
 	public void setLibri(List<Libro> libri) {
 		this.libri = libri;
+	}
+
+	public String getCodFiscale() {
+		return codFiscale;
+	}
+
+	public void setCodFiscale(String codFiscale) {
+		this.codFiscale = codFiscale;
 	}
 	 
 }

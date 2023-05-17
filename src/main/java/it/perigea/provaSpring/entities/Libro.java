@@ -9,14 +9,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 @Entity
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Libro {
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column (nullable = false, unique = true)
+	private String isbn;
 	@Column (nullable = false)
 	private String titolo;
 	@Column (nullable = true)
@@ -24,7 +24,6 @@ public class Libro {
 	@Column (nullable = true)
 	private Integer anno;
 	
-	@JsonBackReference
 	@ManyToOne (cascade = CascadeType.ALL)
 	@JoinColumn(name="SCRITTO_DA", nullable = true)
 	private Autore autore;
@@ -59,6 +58,12 @@ public class Libro {
 	}
 	public void setAutore(Autore autore) {
 		this.autore = autore;
+	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
 	 
 }
