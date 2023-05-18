@@ -9,9 +9,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.perigea.provaSpring.entities.Autore;
 import it.perigea.provaSpring.entities.Libro;
 import it.perigea.provaSpring.entities.dto.LibroDto;
 import it.perigea.provaSpring.entities.dto.LibroMapper;
+import it.perigea.provaSpring.repository.AutoreRepository;
 import it.perigea.provaSpring.repository.LibroRepository;
 
 @Service
@@ -37,7 +39,7 @@ public class LibroService {
 		//Ho un oggetto Optional e se null solleva l'eccezione tramite la lamba function altrimenti restituisce l'oggetto contenuto (Libro).
 		LibroDto libroDto= mapper.libroToLibroDto( libro );
 		return libroDto;
-		}
+	}
 	
 	public LibroDto saveOrUpdateLibro(LibroDto libroDaSalvareDto) {
 		Optional<Libro> libroUpdate = repository.findByIsbn(libroDaSalvareDto.getIsbn());
@@ -50,6 +52,17 @@ public class LibroService {
 		repository.save(libroDaSalvare);
 		return mapper.libroToLibroDto(libroDaSalvare);	//posso restituire il libro preso in ingresso ma voglio vedere come va la doppia conversione.
 	}
+	
+	@Autowired
+	AutoreRepository autoreRepository;
+	
+	public LibroDto addAutoreToLibro(String isbn, String codFiscale) {
+		Libro libro = repository.findByIsbn(isbn).orElseThrow( () -> new EntityNotFoundException("Libro con isbn=" + isbn + " non presente nel DataBase."));
+		Autore autore = autoreRepository.findByCodFiscale(codFiscale).orElseThrow(() -> new EntityNotFoundException("Autore con Codice Fiscale=" + codFiscale + " non presente nel DataBase."));
+		libro.setAutore(autore);
+		LibroDto libroDto= mapper.libroToLibroDto( libro );
+		return libroDto;
+		}
 
 	@Transactional
 	public LibroDto deleteByIsbn(String isbn) {

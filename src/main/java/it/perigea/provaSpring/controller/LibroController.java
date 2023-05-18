@@ -49,6 +49,12 @@ public class LibroController {
 		return new ResponseEntity<LibroDto>(libroDtoSalvato, HttpStatus.OK);
 	}
 	
+	@PutMapping("/addAutoreToLibro/{isbn}/{codFiscale}")
+	public ResponseEntity<LibroDto> addLibro(@PathVariable String isbn, @PathVariable String codFiscale){
+		LibroDto libroDtoSalvato=service.addAutoreToLibro(isbn, codFiscale);
+		return new ResponseEntity<LibroDto>(libroDtoSalvato, HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/deleteByIsbn/{isbn}")
 	public ResponseEntity<LibroDto> delteByIsbn(@PathVariable String isbn) {
 		LibroDto libroDtoEliminato= new LibroDto();
